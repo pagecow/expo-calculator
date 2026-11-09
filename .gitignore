@@ -9,6 +9,9 @@ dist/
 web-build/
 expo-env.d.ts
 
+# scratch space for agents/logs — never commit
+tmp/
+
 # Native
 .kotlin/
 *.orig.*

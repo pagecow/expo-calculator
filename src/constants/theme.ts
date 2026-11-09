@@ -14,6 +14,15 @@ export const Colors = {
     backgroundElement: '#F0F0F3',
     backgroundSelected: '#E0E1E6',
     textSecondary: '#60646C',
+    // Calculator-specific tokens, so the keypad can be restyled without
+    // touching the shared screen colors above.
+    calculatorBackground: '#F2F2F7',
+    keyDigit: '#FFFFFF',
+    keyFunction: '#D8D8DC',
+    keyOperator: '#FF9F0A',
+    keyDigitText: '#000000',
+    keyFunctionText: '#000000',
+    keyOperatorText: '#FFFFFF',
   },
   dark: {
     text: '#ffffff',
@@ -21,6 +30,13 @@ export const Colors = {
     backgroundElement: '#212225',
     backgroundSelected: '#2E3135',
     textSecondary: '#B0B4BA',
+    calculatorBackground: '#000000',
+    keyDigit: '#333333',
+    keyFunction: '#A5A5A5',
+    keyOperator: '#FF9F0A',
+    keyDigitText: '#FFFFFF',
+    keyFunctionText: '#000000',
+    keyOperatorText: '#FFFFFF',
   },
 } as const;
 
@@ -61,5 +77,5 @@ export const Spacing = {
   six: 64,
 } as const;
 
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+/** A calculator never needs to be wider than a phone, even in a browser window. */
+export const MaxCalculatorWidth = 460;

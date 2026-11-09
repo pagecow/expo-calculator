@@ -1,6 +1,20 @@
-# Welcome to your Expo app 👋
+# Expo Calculator
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A clean, theme-aware calculator built with [Expo](https://expo.dev) and
+[Expo Router](https://docs.expo.dev/router/introduction). Runs on iOS, Android
+and the web from one codebase.
+
+## Features
+
+- The four basic operations, with a running expression line (`12 × 4`) above the
+  result so you can see what you're in the middle of.
+- `AC`, sign toggle, percent, decimal point and backspace.
+- Left-to-right calculator math, exactly like a pocket calculator — `2 + 3 × 4`
+  is `20`, not `14`.
+- Floating point noise is cleaned up, so `0.1 + 0.2` shows `0.3`.
+- Divides by zero gracefully: the display shows `Error` and only `AC` clears it.
+- Large results switch to scientific notation (`1.23457e13`).
+- Follows the system light/dark theme, with accessible labels on every key.
 
 ## Get started
 
@@ -16,41 +30,41 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+From there you can open the app in a [development build](https://docs.expo.dev/develop/development-builds/introduction/),
+an [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/),
+the [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/), or
+[Expo Go](https://expo.dev/go).
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Project layout
 
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+| Path                    | What lives there                                              |
+| ----------------------- | ------------------------------------------------------------- |
+| `src/app/_layout.tsx`   | Root layout — theme provider and the single-screen stack.      |
+| `src/app/index.tsx`     | The calculator screen: display, keypad and key components.     |
+| `src/lib/calculator.ts` | The calculator state machine. Pure functions, no React.        |
+| `src/constants/theme.ts`| Colour tokens for both themes plus spacing and fonts.          |
 
-## Get a fresh project
+The math lives in `src/lib/calculator.ts` as pure `state => state` transitions,
+so it can be tested without rendering anything:
 
-When you're ready, run:
+```ts
+import { equals, initialState, inputDigit, inputOperator } from '@/lib/calculator';
 
-```bash
-npm run reset-project
+// Simulates tapping 1, +, 2, =
+let state = inputDigit(initialState, '1');
+state = inputOperator(state, '+');
+state = inputDigit(state, '2');
+equals(state).display; // "3"
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+## Type checking
 
-### Other setup steps
-
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npx tsc --noEmit
+```
 
 ## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- [Expo documentation](https://docs.expo.dev/)
+- [Expo Router documentation](https://docs.expo.dev/router/introduction)
+- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/)
