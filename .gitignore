@@ -13,6 +13,9 @@ expo-env.d.ts
 tmp/
 MEMORY.md
 
+# local EAS build artifacts
+build-*.tar.gz
+
 # Native
 .kotlin/
 *.orig.*
