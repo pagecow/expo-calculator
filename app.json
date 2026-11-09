@@ -28,6 +28,7 @@
     },
     "plugins": [
       "expo-router",
+      "expo-notifications",
       [
         "expo-splash-screen",
         {
@@ -42,6 +43,8 @@
       "reactCompiler": true
     },
     "extra": {
+      "nnAppId": "34015",
+      "nnAppToken": "hqJQ551hWeT2il9CJPYQ6H",
       "router": {
         "asyncRoutes": {
           "web": true
